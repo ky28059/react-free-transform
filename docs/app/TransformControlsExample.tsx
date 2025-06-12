@@ -3,8 +3,8 @@
 import { useFreeTransform } from '@ky28059/react-free-transform';
 
 
-export default function TransformResetExample() {
-    const { transform, reset, callbacks } = useFreeTransform();
+export default function TransformControlsExample() {
+    const { transform, zoom, reset, callbacks } = useFreeTransform();
 
     return (
         <div className="relative">
@@ -14,18 +14,31 @@ export default function TransformResetExample() {
             >
                 <img
                     src="/2.jpg"
-                    className="rounded-md h-80 aspect-[4/3] object-cover object-center shadow-xl"
+                    className="rounded-md h-80 aspect-[4/3] object-cover object-center shadow-2xl"
                     style={{ transform }}
                     draggable={false}
                 />
             </div>
 
+            <div className="flex gap-2 absolute left-4 bottom-3">
+                <button
+                    className="cursor-pointer bg-black/50 text-white rounded px-2 py-1 text-xs"
+                    onClick={() => zoom(0.1)}
+                >
+                    +
+                </button>
+
+                <button
+                    className="cursor-pointer bg-black/50 text-white rounded px-2 py-1 text-xs"
+                    onClick={() => zoom(-0.1)}
+                >
+                    -
+                </button>
+            </div>
+
             <button
                 className="cursor-pointer absolute right-4 bottom-3 bg-black/50 text-white rounded px-2 py-1 text-xs"
-                onClick={(e) => {
-                    e.preventDefault();
-                    reset();
-                }}
+                onClick={reset}
             >
                 Reset transformation
             </button>

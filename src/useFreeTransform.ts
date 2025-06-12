@@ -19,6 +19,17 @@ export default function useFreeTransform() {
      */
     const reset = useCallback(() => setTransformation(identity()), []);
 
+    /**
+     * Zooms the container by the given amount.
+     * @param p The scale to zoom in by.
+     */
+    const zoom = useCallback((p: number) => {
+        setTransformation((transformation) => multiply(
+            dilate(Math.E ** p),
+            transformation
+        ))
+    }, []);
+
     const pointerEnd = useCallback((e: PointerEvent<HTMLElement>) => {
         if (pointer?.id === e.pointerId) {
             if (pointer.other) {
@@ -147,6 +158,7 @@ export default function useFreeTransform() {
         transformation,
 
         reset,
+        zoom,
 
         callbacks: {
             onPointerDown,

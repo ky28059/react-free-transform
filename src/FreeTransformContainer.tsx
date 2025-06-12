@@ -6,6 +6,7 @@ import useFreeTransform from './useFreeTransform';
 
 type FreeTransformState = {
     transform: string,
+    zoom: (p: number) => void,
     reset: () => void,
 }
 
@@ -17,7 +18,7 @@ type FreeTransformContainerProps = {
 export default function FreeTransformContainer(props: FreeTransformContainerProps) {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const { transform, reset, callbacks } = useFreeTransform();
+    const { transform, zoom, reset, callbacks } = useFreeTransform();
 
     useEffect(() => {
         // Unideal, but forced by https://github.com/facebook/react/issues/14856
@@ -37,7 +38,7 @@ export default function FreeTransformContainer(props: FreeTransformContainerProp
             className={props.className}
             {...callbacks}
         >
-            {props.children({ transform, reset })}
+            {props.children({ transform, zoom, reset })}
         </div>
     )
 }

@@ -1,3 +1,5 @@
+'use client'
+
 import { ReactNode, useEffect, useRef } from 'react';
 import useFreeTransform from './useFreeTransform';
 
@@ -24,7 +26,14 @@ export default function FreeTransformContainer(props: FreeTransformContainerProp
     return (
         <div
             ref={containerRef}
-            className={'flex items-center justify-center overflow-hidden touch-none' + (props.className ? ` ${props.className}` : '')}
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+                touchAction: 'none',
+            }}
+            className={props.className}
             {...callbacks}
         >
             {props.children({ transform })}

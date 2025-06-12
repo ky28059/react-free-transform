@@ -34,7 +34,7 @@ export default function useFreeTransform() {
             pointer.other = null
             pointer.transformation = transformation
         }
-    }, [pointer])
+    }, [pointer, transformation])
 
     const onPointerDown = useCallback((e: PointerEvent<HTMLElement>) => {
         if (pointer && pointer.other) return;
@@ -66,7 +66,7 @@ export default function useFreeTransform() {
         }
 
         e.currentTarget.setPointerCapture(e.pointerId);
-    }, [pointer])
+    }, [pointer, transformation])
 
     const onPointerMove = useCallback((e: PointerEvent<HTMLElement>) => {
         if (pointer?.id === e.pointerId || pointer?.other?.id === e.pointerId) {

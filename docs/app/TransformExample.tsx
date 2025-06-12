@@ -9,7 +9,7 @@ export default function TransformExample() {
             {({ transform }) => (
                 <img
                     src="https://ky-photos-preview.s3.us-east-1.amazonaws.com/2025-04-10@14+Pwnme,+Paris/IMG_E5008-preview.webp"
-                    className="h-80 aspect-[3/4] object-cover object-center shadow-xl"
+                    className="rounded-md h-80 aspect-[3/4] object-cover object-center shadow-xl"
                     style={{ transform }}
                     draggable={false}
                 />

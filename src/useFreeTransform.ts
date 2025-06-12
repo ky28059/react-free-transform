@@ -14,6 +14,11 @@ export default function useFreeTransform() {
     const [pointer, setPointer] = useState<Pointer | null>(null);
     const [transformation, setTransformation] = useState(identity());
 
+    /**
+     * Resets the current transformation.
+     */
+    const reset = useCallback(() => setTransformation(identity()), []);
+
     const pointerEnd = useCallback((e: PointerEvent<HTMLElement>) => {
         if (pointer?.id === e.pointerId) {
             if (pointer.other) {
@@ -140,6 +145,9 @@ export default function useFreeTransform() {
     return {
         transform: matrixToCss(transformation),
         transformation,
+
+        reset,
+
         callbacks: {
             onPointerDown,
             onPointerMove,

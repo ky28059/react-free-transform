@@ -1,4 +1,5 @@
 import TransformExample from '@/app/TransformExample';
+import TransformResetExample from '@/app/TransformResetExample';
 
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
             </h2>
 
             <TransformExample />
+            <TransformResetExample />
         </main>
     )
 }

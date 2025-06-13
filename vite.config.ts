@@ -4,6 +4,7 @@ import path from 'node:path';
 // Plugins
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
+import preserveDirectives from 'rollup-preserve-directives';
 
 
 export default defineConfig({
@@ -30,6 +31,7 @@ export default defineConfig({
         dts({ // https://stackoverflow.com/a/78825198
             rollupTypes: true,
             tsconfigPath: "./tsconfig.app.json",
-        })
+        }),
+        preserveDirectives()
     ]
 })

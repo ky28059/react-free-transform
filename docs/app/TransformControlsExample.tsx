@@ -7,9 +7,9 @@ export default function TransformControlsExample() {
     const { transform, zoom, reset, callbacks } = useFreeTransform();
 
     return (
-        <div className="relative">
+        <div className="relative mt-5 mb-8">
             <div
-                className="flex items-center justify-center overflow-hidden touch-none rounded border border-black/10 bg-pink-100 bg-[linear-gradient(135deg,#fb64b680_10%,#0000_0,#0000_50%,#fb64b680_0,#fb64b680_60%,#0000_0,#0000)] bg-[length:7.07px_7.07px] h-96 my-10"
+                className="flex items-center justify-center overflow-hidden touch-none rounded border border-black/10 bg-pink-100 bg-[linear-gradient(135deg,#fb64b680_10%,#0000_0,#0000_50%,#fb64b680_0,#fb64b680_60%,#0000_0,#0000)] bg-[length:7.07px_7.07px] h-96"
                 {...callbacks}
             >
                 <img

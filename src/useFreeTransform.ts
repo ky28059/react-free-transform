@@ -1,4 +1,4 @@
-import { useCallback, useState, PointerEvent, WheelEvent } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { dilate, identity, Matrix, matrixToCss, multiply, rotate, translate } from './matrix';
 
 
@@ -11,6 +11,8 @@ type Pointer = {
 }
 
 export default function useFreeTransform() {
+    const [element, setElement] = useState<HTMLElement | null>(null);
+
     const [pointer, setPointer] = useState<Pointer | null>(null);
     const [transformation, setTransformation] = useState(identity());
 
@@ -30,7 +32,7 @@ export default function useFreeTransform() {
         ))
     }, []);
 
-    const pointerEnd = useCallback((e: PointerEvent<HTMLElement>) => {
+    const pointerEnd = useCallback((e: PointerEvent) => {
         if (pointer?.id === e.pointerId) {
             if (pointer.other) {
                 // Make the other pointer the primary pointer now
@@ -52,7 +54,7 @@ export default function useFreeTransform() {
         }
     }, [pointer, transformation])
 
-    const onPointerDown = useCallback((e: PointerEvent<HTMLElement>) => {
+    const onPointerDown = useCallback((e: PointerEvent) => {
         if (pointer && pointer.other) return;
 
         if (pointer) {
@@ -81,10 +83,10 @@ export default function useFreeTransform() {
             })
         }
 
-        e.currentTarget.setPointerCapture(e.pointerId);
+        (e.currentTarget as Element).setPointerCapture(e.pointerId);
     }, [pointer, transformation])
 
-    const onPointerMove = useCallback((e: PointerEvent<HTMLElement>) => {
+    const onPointerMove = useCallback((e: PointerEvent) => {
         if (pointer?.id === e.pointerId || pointer?.other?.id === e.pointerId) {
             if (pointer.id === e.pointerId) {
                 pointer.lastX = e.clientX;
@@ -94,7 +96,7 @@ export default function useFreeTransform() {
                 pointer.other.lastY = e.clientY;
             }
             if (pointer.other) {
-                const rect = e.currentTarget.getBoundingClientRect();
+                const rect = (e.currentTarget as Element).getBoundingClientRect();
                 const initXDiff = pointer.initX - pointer.other.initX;
                 const initYDiff = pointer.initY - pointer.other.initY;
                 const currentXDiff = pointer.lastX - pointer.other.lastX;
@@ -140,8 +142,10 @@ export default function useFreeTransform() {
         }
     }, [pointer]);
 
-    const onWheel = useCallback((e: WheelEvent<HTMLElement>) => {
-        const rect = e.currentTarget.getBoundingClientRect();
+    const onWheel = useCallback((e: WheelEvent) => {
+        e.preventDefault();
+
+        const rect = (e.currentTarget as Element).getBoundingClientRect();
         const centerX = e.clientX - (rect.left + rect.width / 2);
         const centerY = e.clientY - (rect.top + rect.height / 2);
 
@@ -153,19 +157,34 @@ export default function useFreeTransform() {
         ))
     }, []);
 
+    useEffect(() => {
+        if (!element) return;
+        element.addEventListener('wheel', onWheel);
+        return () => element.removeEventListener('wheel', onWheel);
+    }, [element]);
+
+    useEffect(() => {
+        if (!element) return;
+
+        element.addEventListener('pointerdown', onPointerDown);
+        element.addEventListener('pointermove', onPointerMove);
+        element.addEventListener('pointerup', pointerEnd);
+        element.addEventListener('pointercancel', pointerEnd);
+
+        return () => {
+            element.removeEventListener('pointerdown', onPointerDown);
+            element.removeEventListener('pointermove', onPointerMove);
+            element.removeEventListener('pointerup', pointerEnd);
+            element.removeEventListener('pointercancel', pointerEnd);
+        }
+    }, [element, pointer, transformation]);
+
     return {
         transform: matrixToCss(transformation),
         transformation,
 
+        register: setElement,
         reset,
-        zoom,
-
-        callbacks: {
-            onPointerDown,
-            onPointerMove,
-            onWheel,
-            onPointerUp: pointerEnd,
-            onPointerCancel: pointerEnd,
-        }
+        zoom
     }
 }

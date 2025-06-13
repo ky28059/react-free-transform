@@ -10,12 +10,12 @@ export default function Home() {
                 @ky28059/react-free-transform
             </h1>
             <p className="mb-4">
-                A flexible, <InlineCode>matrix()</InlineCode>-based library for free-transform of arbitrary HTML
+                A flexible, CSS <InlineCode>matrix()</InlineCode>-based library for free-transform of arbitrary HTML
                 elements in React.
             </p>
 
             <h2 className="font-bold text-2xl mt-12 mb-3">
-                Examples:
+                Examples
             </h2>
 
             <p>

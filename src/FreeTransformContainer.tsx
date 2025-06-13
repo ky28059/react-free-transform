@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, useEffect, useRef } from 'react';
+import type { ReactNode } from 'react';
 import useFreeTransform from './useFreeTransform';
 
 
@@ -16,18 +16,11 @@ type FreeTransformContainerProps = {
 }
 
 export default function FreeTransformContainer(props: FreeTransformContainerProps) {
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    const { transform, zoom, reset, callbacks } = useFreeTransform();
-
-    useEffect(() => {
-        // Unideal, but forced by https://github.com/facebook/react/issues/14856
-        containerRef.current?.addEventListener('wheel', (e) => e.preventDefault());
-    }, [containerRef.current]);
+    const { register, transform, zoom, reset } = useFreeTransform();
 
     return (
         <div
-            ref={containerRef}
+            ref={register}
             style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -36,7 +29,6 @@ export default function FreeTransformContainer(props: FreeTransformContainerProp
                 touchAction: 'none',
             }}
             className={props.className}
-            {...callbacks}
         >
             {props.children({ transform, zoom, reset })}
         </div>

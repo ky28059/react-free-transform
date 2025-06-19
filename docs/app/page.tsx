@@ -5,6 +5,7 @@ import TransformBasicExample from '@/app/TransformBasicExample';
 import TransformControlsExample from '@/app/TransformControlsExample';
 import { InlineCode } from '@/components/InlineCode';
 import { SyntaxHighlighter } from '@/components/SyntaxHighlighter';
+import LinkHeading from '@/components/LinkHeading';
 
 
 export default function Home() {
@@ -24,9 +25,9 @@ export default function Home() {
                 </SyntaxHighlighter>
             </div>
 
-            <h2 className="font-bold text-2xl mt-12 mb-3">
+            <LinkHeading id="examples" className="font-bold text-2xl mt-12 mb-3">
                 Examples
-            </h2>
+            </LinkHeading>
 
             <p>
                 A simple example using the base <InlineCode>{'<FreeTransformContainer />'}</InlineCode> component:
@@ -39,15 +40,17 @@ export default function Home() {
             </p>
             <TransformControlsExample />
 
-            <h2 className="font-bold text-2xl mt-12 mb-3">
+            <LinkHeading id="usage" className="font-bold text-2xl mt-12 mb-6">
                 Usage
-            </h2>
+            </LinkHeading>
+            <LinkHeading id="freetransformcontainer" className="!text-lg font-semibold mb-3">
+                Component: <InlineCode>{'<FreeTransformContainer />'}</InlineCode>
+            </LinkHeading>
             <p className="mb-4">
-                For basic use cases, <InlineCode>react-free-transform</InlineCode> exports a simple{' '}
-                <InlineCode>{'<FreeTransformContainer />'}</InlineCode> component. The{' '}
-                <InlineCode>FreeTransformContainer</InlineCode> renders a wrapper <InlineCode>div</InlineCode> that
+                For basic use cases, use the <InlineCode>{'<FreeTransformContainer />'}</InlineCode> component.
+                The <InlineCode>FreeTransformContainer</InlineCode> renders a wrapper <InlineCode>div</InlineCode> that
                 registers the transform controls on itself. The current transformation, as well as some callback
-                functions, are exposed to the component's children via render callback.
+                functions, are exposed to the component's children via a render callback.
             </p>
             <div className="rounded-lg overflow-hidden !text-sm">
                 <SyntaxHighlighter language="tsx">
@@ -103,7 +106,10 @@ export default function Home() {
                 </tr>
             </PropsTable>
 
-            <p className="mt-12 mb-4">
+            <LinkHeading id="usefreetransform" className="mt-12 !text-lg font-semibold mb-3">
+                Hook: <InlineCode>useFreeTransform()</InlineCode>
+            </LinkHeading>
+            <p className="mb-4">
                 For more advanced use cases, use the <InlineCode>useFreeTransform()</InlineCode> hook directly.
             </p>
             <div className="rounded-lg overflow-hidden !text-sm">

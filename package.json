@@ -21,6 +21,10 @@
   "files": [
     "/dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ky28059/react-free-transform.git"
+  },
   "author": "ky28059",
   "license": "MIT",
   "devDependencies": {

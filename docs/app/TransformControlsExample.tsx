@@ -49,7 +49,7 @@ export default function TransformControlsExample() {
 
 const code = `import { useFreeTransform } from '@ky28059/react-free-transform';
 
-export default function TransformControlsExample() {
+export default function Example() {
     const { register, transform, zoom, reset } = useFreeTransform();
 
     return (
